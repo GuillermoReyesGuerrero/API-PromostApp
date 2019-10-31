@@ -46,13 +46,8 @@ router.post('/promociones',(req,res,next) => {
     });
 });
 
-<<<<<<< HEAD
-router.put('/promociones/:id',(req,res,next) => {
-    mysqlConnection.query('UPDATE Promociones SET? WHERE idPromocion = '+req.params.id,{
-=======
 router.put('/promociones/:idp',(req,res,next) => {
     mysqlConnection.query('UPDATE Promociones SET? WHERE idPromocion = '+req.params.idp,{
->>>>>>> fe0c3adccd66520ffa0c60c7a23676fad6fdaf55
         //idPromocion : req.body.idPromocion,
         Nombre: req.body.Nombre,
         Descripcion: req.body.Descripcion,
