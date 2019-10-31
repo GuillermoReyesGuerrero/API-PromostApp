@@ -89,4 +89,14 @@ router.delete('/usuarios/:idu', (req, res) => {
     });
 });
 
+router.get('/maxusuarios', (req, res) => {
+    mysqlConnection.query('SELECT MAX(idUsuario) AS Maxvalor FROM Usuarios' ,(err,result) => {
+        if(!err){
+            res.json(result);
+        }else{
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;

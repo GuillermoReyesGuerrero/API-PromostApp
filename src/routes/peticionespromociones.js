@@ -14,4 +14,85 @@ router.get('/promociones', (req, res) => {
     });
 });
 
+router.get('/promociones/:idp', (req, res) => {
+    mysqlConnection.query('SELECT * FROM Promociones WHERE idPromocion = '+req.params.idp,(err,result) => {
+        if(!err){
+            res.json(result);
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+router.post('/promociones',(req,res,next) => {
+    mysqlConnection.query('INSERT INTO Promociones SET? ',{
+        idPromocion : req.body.idPromocion,
+        Nombre: req.body.Nombre,
+        Descripcion: req.body.Descripcion,
+        TipoPromocion: req.body.TipoPromocion,
+        FechaIngreso: req.body.FechaIngreso,
+        Activo: req.body.Activo,
+        FechaCreacion: req.body.FechaCreacion,
+        FechaModificacion: req.body.FechaModificacion,
+        Usuarios_idUsuario: req.body.Usuarios_idUsuario,
+        Empresas_idEmpresa: req.body.Empresas_idEmpresa
+    }, (err,result) => {
+        if(!err){
+            //res.json(result);
+            res.status(201).json({
+                message: 'Successfull'
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+router.put('/promociones/:id',(req,res,next) => {
+    mysqlConnection.query('UPDATE Promociones SET? WHERE idPromocion = '+req.params.idp,{
+        //idPromocion : req.body.idPromocion,
+        Nombre: req.body.Nombre,
+        Descripcion: req.body.Descripcion,
+        TipoPromocion: req.body.TipoPromocion,
+        FechaIngreso: req.body.FechaIngreso,
+        Activo: req.body.Activo,
+        FechaCreacion: req.body.FechaCreacion,
+        FechaModificacion: req.body.FechaModificacion,
+        Usuarios_idUsuario: req.body.Usuarios_idUsuario,
+        Empresas_idEmpresa: req.body.Empresas_idEmpresa
+    }, (err,result) => {
+        if(!err){
+            //res.json(result);
+            res.status(201).json({
+                message: 'Successfull'
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+router.delete('/promociones/:idp', (req, res) => {
+    mysqlConnection.query('DELETE FROM Promociones WHERE idPromocion = '+req.params.idp,(err,result) => {
+        if(!err){
+            //res.json(result);
+            res.status(201).json({
+                message: 'Successfull'
+            });
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+router.get('/maxpromociones', (req, res) => {
+    mysqlConnection.query('SELECT MAX(idPromocion) AS Maxvalor FROM Promociones' ,(err,result) => {
+        if(!err){
+            res.json(result);
+        }else{
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;
