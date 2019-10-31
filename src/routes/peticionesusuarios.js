@@ -33,11 +33,12 @@ router.post('/usuarios',(req,res,next) => {
         Domicilio: req.body.Domicilio,
         Telefono: req.body.Telefono,
         RFC: req.body.RFC,
-        FechaIngreso: req.body.FechaIngreso,
+        Usuario: req.body.Usuario,
+        Contraseña: req.body.Contraseña,
+        TipoUsuario: req.body.TipoUsuario,
         Activo: req.body.Activo,
         FechaCreacion: req.body.FechaCreacion,
-        FechaModificacion: req.body.FechaModificacion,
-        Login_idLogin: req.body.Login_idLogin
+        FechaModificacion: req.body.FechaModificacion
     }, (err,result) => {
         if(!err){
             //res.json(result);
@@ -59,11 +60,12 @@ router.put('/usuarios/:idu',(req,res,next) => {
         Domicilio: req.body.Domicilio,
         Telefono: req.body.Telefono,
         RFC: req.body.RFC,
-        FechaIngreso: req.body.FechaIngreso,
+        Usuario: req.body.Usuario,
+        Contraseña: req.body.Contraseña,
+        TipoUsuario: req.body.TipoUsuario,
         Activo: req.body.Activo,
         FechaCreacion: req.body.FechaCreacion,
         FechaModificacion: req.body.FechaModificacion,
-        Login_idLogin: req.body.Login_idLogin
     }, (err,result) => {
         if(!err){
             //res.json(result);
