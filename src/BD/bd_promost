@@ -1,0 +1,133 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema bd_promost
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema bd_promost
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `bd_promost` DEFAULT CHARACTER SET utf8 ;
+USE `bd_promost` ;
+
+-- -----------------------------------------------------
+-- Table `bd_promost`.`Login`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bd_promost`.`Login` (
+  `idLogin` INT NOT NULL AUTO_INCREMENT,
+  `Usuario` VARCHAR(45) NOT NULL,
+  `Contraseña` VARCHAR(45) NOT NULL,
+  `TipoUsuario` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idLogin`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bd_promost`.`Usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bd_promost`.`Usuarios` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `ApellidoPaterno` VARCHAR(45) NOT NULL,
+  `ApellidoMaterno` VARCHAR(45) NOT NULL,
+  `Domicilio` VARCHAR(45) NOT NULL,
+  `Telefono` VARCHAR(45) NOT NULL,
+  `RFC` VARCHAR(45) NOT NULL,
+  `FechaIngreso` DATE NULL,
+  `Activo` VARCHAR(1) NULL,
+  `FechaCreacion` DATE NULL,
+  `FechaModificacion` DATE NULL,
+  `Login_idLogin` INT NOT NULL,
+  PRIMARY KEY (`idUsuario`, `Login_idLogin`),
+  INDEX `fk_Usuarios_Login_idx` (`Login_idLogin` ASC),
+  CONSTRAINT `fk_Usuarios_Login`
+    FOREIGN KEY (`Login_idLogin`)
+    REFERENCES `bd_promost`.`Login` (`idLogin`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bd_promost`.`Empresas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bd_promost`.`Empresas` (
+  `idEmpresa` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `RFC` VARCHAR(45) NOT NULL,
+  `Domicilio` VARCHAR(45) NOT NULL,
+  `FechaIngreso` DATE NULL,
+  `Activo` VARCHAR(1) NULL,
+  `FechaCreacion` DATE NULL,
+  `FechaModificacion` DATE NULL,
+  `Usuarios_idUsuario` INT NOT NULL,
+  PRIMARY KEY (`idEmpresa`, `Usuarios_idUsuario`),
+  INDEX `fk_Empresas_Usuarios1_idx` (`Usuarios_idUsuario` ASC),
+  CONSTRAINT `fk_Empresas_Usuarios1`
+    FOREIGN KEY (`Usuarios_idUsuario`)
+    REFERENCES `bd_promost`.`Usuarios` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bd_promost`.`Sucursales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bd_promost`.`Sucursales` (
+  `idSucursal` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `RFC` VARCHAR(45) NOT NULL,
+  `Domicilio` VARCHAR(45) NOT NULL,
+  `FechaIngreso` DATE NULL,
+  `Activo` VARCHAR(1) NULL,
+  `FechaCreacion` DATE NULL,
+  `FechaModificacion` DATE NULL,
+  `Empresas_idEmpresa` INT NOT NULL,
+  PRIMARY KEY (`idSucursal`, `Empresas_idEmpresa`),
+  INDEX `fk_Sucursales_Empresas1_idx` (`Empresas_idEmpresa` ASC),
+  CONSTRAINT `fk_Sucursales_Empresas1`
+    FOREIGN KEY (`Empresas_idEmpresa`)
+    REFERENCES `bd_promost`.`Empresas` (`idEmpresa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bd_promost`.`Promociones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bd_promost`.`Promociones` (
+  `idPromocion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `Descripcion` VARCHAR(45) NOT NULL,
+  `TipoPromocion` VARCHAR(45) NOT NULL,
+  `FechaIngreso` DATE NULL,
+  `Activo` VARCHAR(1) NULL,
+  `FechaCreacion` DATE NULL,
+  `FechaModificacion` DATE NULL,
+  `Usuarios_idUsuario` INT NOT NULL,
+  `Empresas_idEmpresa` INT NOT NULL,
+  PRIMARY KEY (`idPromocion`, `Usuarios_idUsuario`, `Empresas_idEmpresa`),
+  INDEX `fk_Promociones_Usuarios1_idx` (`Usuarios_idUsuario` ASC),
+  INDEX `fk_Promociones_Empresas1_idx` (`Empresas_idEmpresa` ASC),
+  CONSTRAINT `fk_Promociones_Usuarios1`
+    FOREIGN KEY (`Usuarios_idUsuario`)
+    REFERENCES `bd_promost`.`Usuarios` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Promociones_Empresas1`
+    FOREIGN KEY (`Empresas_idEmpresa`)
+    REFERENCES `bd_promost`.`Empresas` (`idEmpresa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
