@@ -78,4 +78,14 @@ router.delete('/login/:idl', (req, res) => {
     });
 });
 
+router.get('/maxlogin', (req, res) => {
+    mysqlConnection.query('SELECT MAX(idLogin) AS Maxvalor FROM Login' ,(err,result) => {
+        if(!err){
+            res.json(result);
+        }else{
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;
