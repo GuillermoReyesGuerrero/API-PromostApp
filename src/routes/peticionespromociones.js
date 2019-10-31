@@ -30,11 +30,9 @@ router.post('/promociones',(req,res,next) => {
         Nombre: req.body.Nombre,
         Descripcion: req.body.Descripcion,
         TipoPromocion: req.body.TipoPromocion,
-        FechaIngreso: req.body.FechaIngreso,
         Activo: req.body.Activo,
         FechaCreacion: req.body.FechaCreacion,
         FechaModificacion: req.body.FechaModificacion,
-        Usuarios_idUsuario: req.body.Usuarios_idUsuario,
         Empresas_idEmpresa: req.body.Empresas_idEmpresa
     }, (err,result) => {
         if(!err){
@@ -54,11 +52,9 @@ router.put('/promociones/:id',(req,res,next) => {
         Nombre: req.body.Nombre,
         Descripcion: req.body.Descripcion,
         TipoPromocion: req.body.TipoPromocion,
-        FechaIngreso: req.body.FechaIngreso,
         Activo: req.body.Activo,
         FechaCreacion: req.body.FechaCreacion,
         FechaModificacion: req.body.FechaModificacion,
-        Usuarios_idUsuario: req.body.Usuarios_idUsuario,
         Empresas_idEmpresa: req.body.Empresas_idEmpresa
     }, (err,result) => {
         if(!err){

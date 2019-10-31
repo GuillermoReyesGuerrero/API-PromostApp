@@ -15,18 +15,6 @@ CREATE SCHEMA IF NOT EXISTS `bd_promost` DEFAULT CHARACTER SET utf8 ;
 USE `bd_promost` ;
 
 -- -----------------------------------------------------
--- Table `bd_promost`.`Login`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_promost`.`Login` (
-  `idLogin` INT NOT NULL AUTO_INCREMENT,
-  `Usuario` VARCHAR(45) NOT NULL,
-  `Contraseña` VARCHAR(45) NOT NULL,
-  `TipoUsuario` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idLogin`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `bd_promost`.`Usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bd_promost`.`Usuarios` (
@@ -37,18 +25,13 @@ CREATE TABLE IF NOT EXISTS `bd_promost`.`Usuarios` (
   `Domicilio` VARCHAR(45) NOT NULL,
   `Telefono` VARCHAR(45) NOT NULL,
   `RFC` VARCHAR(45) NOT NULL,
-  `FechaIngreso` DATE NULL,
+  `Usuario` VARCHAR(45) NOT NULL,
+  `Contraseña` VARCHAR(45) NOT NULL,
+  `TipoUsuario` VARCHAR(45) NOT NULL,
   `Activo` VARCHAR(1) NULL,
   `FechaCreacion` DATE NULL,
   `FechaModificacion` DATE NULL,
-  `Login_idLogin` INT NOT NULL,
-  PRIMARY KEY (`idUsuario`, `Login_idLogin`),
-  INDEX `fk_Usuarios_Login_idx` (`Login_idLogin` ASC),
-  CONSTRAINT `fk_Usuarios_Login`
-    FOREIGN KEY (`Login_idLogin`)
-    REFERENCES `bd_promost`.`Login` (`idLogin`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idUsuario`))
 ENGINE = InnoDB;
 
 
@@ -60,7 +43,6 @@ CREATE TABLE IF NOT EXISTS `bd_promost`.`Empresas` (
   `Nombre` VARCHAR(45) NOT NULL,
   `RFC` VARCHAR(45) NOT NULL,
   `Domicilio` VARCHAR(45) NOT NULL,
-  `FechaIngreso` DATE NULL,
   `Activo` VARCHAR(1) NULL,
   `FechaCreacion` DATE NULL,
   `FechaModificacion` DATE NULL,
@@ -83,7 +65,6 @@ CREATE TABLE IF NOT EXISTS `bd_promost`.`Sucursales` (
   `Nombre` VARCHAR(45) NOT NULL,
   `RFC` VARCHAR(45) NOT NULL,
   `Domicilio` VARCHAR(45) NOT NULL,
-  `FechaIngreso` DATE NULL,
   `Activo` VARCHAR(1) NULL,
   `FechaCreacion` DATE NULL,
   `FechaModificacion` DATE NULL,
@@ -106,20 +87,12 @@ CREATE TABLE IF NOT EXISTS `bd_promost`.`Promociones` (
   `Nombre` VARCHAR(45) NOT NULL,
   `Descripcion` VARCHAR(45) NOT NULL,
   `TipoPromocion` VARCHAR(45) NOT NULL,
-  `FechaIngreso` DATE NULL,
   `Activo` VARCHAR(1) NULL,
   `FechaCreacion` DATE NULL,
   `FechaModificacion` DATE NULL,
-  `Usuarios_idUsuario` INT NOT NULL,
   `Empresas_idEmpresa` INT NOT NULL,
-  PRIMARY KEY (`idPromocion`, `Usuarios_idUsuario`, `Empresas_idEmpresa`),
-  INDEX `fk_Promociones_Usuarios1_idx` (`Usuarios_idUsuario` ASC),
+  PRIMARY KEY (`idPromocion`, `Empresas_idEmpresa`),
   INDEX `fk_Promociones_Empresas1_idx` (`Empresas_idEmpresa` ASC),
-  CONSTRAINT `fk_Promociones_Usuarios1`
-    FOREIGN KEY (`Usuarios_idUsuario`)
-    REFERENCES `bd_promost`.`Usuarios` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Promociones_Empresas1`
     FOREIGN KEY (`Empresas_idEmpresa`)
     REFERENCES `bd_promost`.`Empresas` (`idEmpresa`)
