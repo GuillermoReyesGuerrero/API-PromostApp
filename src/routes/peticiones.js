@@ -5,7 +5,7 @@ const mysqlConnection = require('../database');
 
 //raiz principal
 router.get('/', (req,res) => {
-    res.send('API lista');
+    res.send('API Lista');
 });
 
 //Seccion de CRUD Login
