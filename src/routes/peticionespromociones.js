@@ -46,7 +46,7 @@ router.post('/promociones',(req,res,next) => {
     });
 });
 
-router.put('/promociones/:id',(req,res,next) => {
+router.put('/promociones/:idp',(req,res,next) => {
     mysqlConnection.query('UPDATE Promociones SET? WHERE idPromocion = '+req.params.idp,{
         //idPromocion : req.body.idPromocion,
         Nombre: req.body.Nombre,
