@@ -14,13 +14,6 @@ app.use(express.json());
 
 //app.use(bodyParser.json())
 
-//routes
-app.use(require('./routes/peticiones'));
-app.use(require('./routes/peticionesusuarios'));
-app.use(require('./routes/peticionesempresas'));
-app.use(require('./routes/peticionessucursales'));
-app.use(require('./routes/peticionespromociones'));
-
 //config allows
 app.use((req,res,next) => {
     res.header("Access-Control-Allow-Origin","*")
@@ -31,6 +24,13 @@ app.use((req,res,next) => {
     }
     next()
 });
+
+//routes
+app.use(require('./routes/peticiones'));
+app.use(require('./routes/peticionesusuarios'));
+app.use(require('./routes/peticionesempresas'));
+app.use(require('./routes/peticionessucursales'));
+app.use(require('./routes/peticionespromociones'));
 
 //starting the server
 app.listen(app.get('port'), () => {
