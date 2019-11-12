@@ -46,7 +46,7 @@ router.post('/empresas',(req,res,next) => {
     });
 });
 
-router.put('/empresas/:id',(req,res,next) => {
+router.post('/empresas/:id',(req,res,next) => {
     mysqlConnection.query('UPDATE Empresas SET? WHERE idEmpresa = '+req.params.id,{
         //idEmpresa : req.body.idEmpresa,
         Nombre: req.body.Nombre,
@@ -55,7 +55,7 @@ router.put('/empresas/:id',(req,res,next) => {
         Activo: req.body.Activo,
         FechaCreacion: req.body.FechaCreacion,
         FechaModificacion: req.body.FechaModificacion,
-        Usuarios_idUsuario : req.body.Usuarios_idUsuario
+        //Usuarios_idUsuario : req.body.Usuarios_idUsuario
     }, (err,result) => {
         if(!err){
             //res.json(result);
